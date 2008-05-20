@@ -37,7 +37,6 @@ class CHeadRules(object):
       file.close()
       if sLogs != None:
          self.log = open(sLogs, "w")
-         self.log.write(repr(self.m_dRules))
       else:
          self.log = None
 
@@ -58,8 +57,9 @@ class CHeadRules(object):
          lZipped = filter(lambda x: x[0] != None, lZipped)
          if lZipped == []:
             return None
-         lLabels = node.name.split("-") # NP-PN
-         for lRuleSet in self.m_dRules.get(lLabels[0], []):
+         sLabel = node.name.split("-")[0] # NP-PN
+         sLabel = sLabel.split("=")[0]
+         for lRuleSet in self.m_dRules.get(sLabel, []):
             assert lRuleSet[0] in ("l", "r")
             lTemp = lZipped[:] # (dep node, constituent)
             if lRuleSet[0] == "r":
@@ -81,7 +81,7 @@ class CHeadRules(object):
                break
          else:
             if self.log != None:
-               print >> self.log, "can't find a rule for " + lLabels[0] + " with " + ", ".join([child_node.name for child_node in node.children])
+               print >> self.log, "can't find a rule for " + sLabel + " with " + ", ".join([child_node.name for child_node in node.children])
             head_child = lZipped[-1][0]
          for other_child, tmp in lZipped:
             if other_child != head_child:

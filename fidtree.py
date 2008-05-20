@@ -74,7 +74,7 @@ def __find_node(sSentence, nIndex):
       raise "Found empty string while expecting some income: " + sSentence
    if sSentence[nIndex] != "(": raise "( not found from sentence: %s from index: %d" % (sSentence, nIndex)
    # the next case is the out bracket in "( (NP ...) ... )" 
-   if sSentence[nIndex+1].isspace():
+   if sSentence[nIndex+1].isspace() or sSentence[nIndex+1]=="(":
       node = __find_node(sSentence, nIndex+1)
       nIndex = node.end_index
       nIndex = __next_index(sSentence, nIndex+1)
