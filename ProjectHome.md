@@ -1,0 +1,1 @@
+A group of Python scripts that can be used to analyse the structure of Chinese Treebank data, collecting statistics or transforming them to other formats.
